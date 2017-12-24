@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import BookButton from './BookButton'
 
 
-const Book = ({book}) => {
+const Book = ({book, up}) => {
     const {title, authors, image} = book
 
     return (
@@ -12,7 +12,7 @@ const Book = ({book}) => {
           <div className="book-top">
               <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${image})` }}></div>
 
-              <BookButton/>
+              <BookButton book={book} up={up}/>
 
           </div>
           <div className="book-title">{title}</div>

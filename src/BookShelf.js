@@ -1,17 +1,17 @@
 import React from 'react'
 import Book from "./Book"
 
-const BookShelf = ({title, books}) => {
-    const shelfBooks = books.filter(book => (book.shelf == title))
+const BookShelf = ({shelf, books, up}) => {
+    const shelfBooks = books.filter(book => (book.value == shelf.value))
     console.log(shelfBooks)
     return (
 
         <div className="bookshelf">
-          <h2 className="bookshelf-title">{title}</h2>
+          <h2 className="bookshelf-title">{shelf.title}</h2>
           <div className="bookshelf-books">
             <ol className="books-grid">
 
-            {shelfBooks.map((book) => (<li key={book.title}><Book book={book}/></li>))}
+            {shelfBooks.map((book) => (<li key={book.title}><Book book={book} up={up}/></li>))}
 
             </ol>
           </div>
