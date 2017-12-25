@@ -68,9 +68,6 @@ class BooksApp extends React.Component {
   }
 
   updateShelf(target, book) {
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
-      console.log(target.value)
-      console.log("@@@@@@@@@@@@@@@@@@@@@@@@@")
       let books  = this.state.books
       books = books.filter(b => b.title !== book.title).concat({
           ...book,
@@ -108,7 +105,6 @@ class BooksApp extends React.Component {
         books: this.state.books
     }]
 
-    console.log(<ListBooks books={this.state.books} shelves={shelves} up={this.updateShelf}/>)
     return (
       <div className="app">
 
