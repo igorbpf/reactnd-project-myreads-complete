@@ -1,9 +1,9 @@
 import React from 'react'
-// import * as BooksAPI from './BooksAPI'
+import * as BooksAPI from './BooksAPI'
 import './App.css'
-import BookShelf from './BookShelf'
 import { Route, Link } from 'react-router-dom'
 import SearchPage from './SearchPage'
+import ListBooks from './ListBooks'
 
 class BooksApp extends React.Component {
     constructor(props) {
@@ -79,6 +79,17 @@ class BooksApp extends React.Component {
       this.setState({ books })
   }
 
+
+  componentDidMount() {
+        BooksAPI.getAll().then((books) => {
+            console.log("##################")
+            console.log(books)
+            console.log("##################")
+        })
+  }
+
+
+
   render() {
 
     const shelves = [{
@@ -97,32 +108,16 @@ class BooksApp extends React.Component {
         books: this.state.books
     }]
 
+    console.log(<ListBooks books={this.state.books} shelves={shelves} up={this.updateShelf}/>)
     return (
       <div className="app">
-
 
         <Route path='/search' render={({ history }) => (
             <SearchPage/>
       )}/>
 
         <Route exact path="/" render={() => (
-          <div className="list-books">
-            <div className="list-books-title">
-              <h1>MyReads</h1>
-            </div>
-            <div className="list-books-content">
-              <div>
-
-                {shelves.map((shelf, index) => (
-                    <BookShelf key={index} shelf={shelf} books={this.state.books} up={this.updateShelf}/>
-                ))}
-
-              </div>
-            </div>
-            <div className="open-search">
-              <Link to='/search'>Add a book</Link>
-            </div>
-          </div>
+            <ListBooks books={this.state.books} shelves={shelves} up={this.updateShelf}/>
         )}/>
 
       </div>
