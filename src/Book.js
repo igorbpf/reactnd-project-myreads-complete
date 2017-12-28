@@ -4,7 +4,11 @@ import BookButton from './BookButton'
 
 
 const Book = ({book, up}) => {
-    const {title, authors, image} = book
+    const {title, authors, imageLinks} = book
+    let image = ""
+    if (imageLinks) {
+        image = imageLinks.thumbnail
+    }
 
     return (
 

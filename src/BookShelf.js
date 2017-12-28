@@ -3,7 +3,6 @@ import Book from "./Book"
 
 const BookShelf = ({shelf, books, up}) => {
     const shelfBooks = books.filter(book => (book.value == shelf.value))
-    console.log(shelfBooks)
     return (
 
         <div className="bookshelf">
@@ -16,8 +15,6 @@ const BookShelf = ({shelf, books, up}) => {
             </ol>
           </div>
         </div>
-
-
 
     )
 }

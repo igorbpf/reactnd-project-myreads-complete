@@ -79,9 +79,7 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            console.log("##################")
             console.log(books)
-            console.log("##################")
         })
   }
 
@@ -109,7 +107,7 @@ class BooksApp extends React.Component {
       <div className="app">
 
         <Route path='/search' render={({ history }) => (
-            <SearchPage/>
+            <SearchPage up={this.updateShelf}/>
       )}/>
 
         <Route exact path="/" render={() => (
