@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
 
 const BookButton = ({book, up}) => {
     return (
@@ -13,6 +15,11 @@ const BookButton = ({book, up}) => {
       </div>
 
     )
+}
+
+BookButton.propTypes = {
+    book: PropTypes.object.isRequired,
+    up: PropTypes.func.isRequired
 }
 
 export default BookButton

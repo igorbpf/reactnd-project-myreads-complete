@@ -28,4 +28,9 @@ const Book = ({book, up}) => {
 
 }
 
+Book.propTypes = {
+    book: PropTypes.object.isRequired,
+    up: PropTypes.func.isRequired
+}
+
 export default Book
