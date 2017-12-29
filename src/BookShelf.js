@@ -2,7 +2,7 @@ import React from 'react'
 import Book from "./Book"
 
 const BookShelf = ({shelf, books, up}) => {
-    const shelfBooks = books.filter(book => (book.value == shelf.value))
+    const shelfBooks = books.filter(book => (book.shelf == shelf.value))
     return (
 
         <div className="bookshelf">

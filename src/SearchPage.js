@@ -3,9 +3,15 @@ import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
 import Book from './Book'
 import { debounce } from 'throttle-debounce'
+import PropTypes from 'prop-types'
+
 
 
 class SearchPage extends Component {
+    static propType = {
+        up: PropTypes.func.isRequired,
+        knownBooks: PropTypes.array.isRequired
+    }
 
     state = {
         query: "",
@@ -35,7 +41,23 @@ class SearchPage extends Component {
     render(){
 
         const { query, books } = this.state
-        const { up } = this.props
+        const { up, knownBooks } = this.props
+
+        const knownIds = knownBooks.map(book => book.id);
+        // console.log(knownIds);
+
+        const filteredBooks = books.map(book => {
+            if (knownIds.includes(book.id)){
+                const filteredBook = knownBooks.filter(b => b.id === book.id)[0]
+                book.shelf = filteredBook.shelf
+                return book
+            } else {
+                book.shelf = "none"
+                return book
+            }
+        })
+
+        console.log(filteredBooks)
 
         return (
             <div className="search-books">
@@ -56,7 +78,7 @@ class SearchPage extends Component {
               <div className="search-books-results">
                 <ol className="books-grid">
 
-                    {books.map(book =>  <li key={book.id}><Book book={book} up={up}/></li>)}
+                    {filteredBooks.map(book =>  <li key={book.id}><Book book={book} up={up}/></li>)}
 
                 </ol>
               </div>
