@@ -1,9 +1,13 @@
 import React from 'react'
 import Book from "./Book"
 import PropTypes from 'prop-types'
+import { Transition } from 'semantic-ui-react'
 
-const BookShelf = ({shelf, books, up}) => {
-    const shelfBooks = books.filter(book => (book.shelf == shelf.value))
+
+const BookShelf = ({shelf, books, up, trans}) => {
+    const shelfBooks = books.filter(book => (book.shelf === shelf.value))
+    const { animation, duration } = trans
+
 
     return (
 
@@ -17,7 +21,7 @@ const BookShelf = ({shelf, books, up}) => {
 
             {shelfBooks.length > 0 && (
                 <ol className="books-grid">
-                    {shelfBooks.map((book) => (<li key={book.title}><Book book={book} up={up}/></li>))}
+                       { shelfBooks.map((book) => (<Transition.Group animation={animation} key={book.title} duration={duration}>{ book.visible && (<li key={book.title}><Book book={book} up={up}/></li>) } </Transition.Group>))}
                 </ol>
             )}
 
@@ -30,7 +34,8 @@ const BookShelf = ({shelf, books, up}) => {
 BookShelf.propTypes = {
     shelf: PropTypes.object.isRequired,
     books: PropTypes.array.isRequired,
-    up: PropTypes.func.isRequired
+    up: PropTypes.func.isRequired,
+    trans: PropTypes.object.isRequired
 }
 
 export default BookShelf

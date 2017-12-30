@@ -6,7 +6,6 @@ import { debounce } from 'throttle-debounce'
 import PropTypes from 'prop-types'
 
 
-
 class SearchPage extends Component {
     static propType = {
         up: PropTypes.func.isRequired,
@@ -40,7 +39,7 @@ class SearchPage extends Component {
 
     render(){
 
-        const { query, books } = this.state
+        const books = this.state.books
         const { up, knownBooks } = this.props
 
         const knownIds = knownBooks.map(book => book.id);
@@ -59,6 +58,10 @@ class SearchPage extends Component {
 
         return (
             <div className="search-books">
+                <div className="list-books-title">
+                  <h1>Search</h1>
+                </div>
+
               <div className="search-books-bar">
                 <Link className="close-search" to="/">Close</Link>
                 <div className="search-books-input-wrapper">
