@@ -37,6 +37,9 @@ class BooksApp extends React.Component {
                 ...book,
                 visible: true
             })
+            const stringfiedBooks = JSON.stringify(books)
+            window.localStorage.setItem('booksUsed', stringfiedBooks)
+
             this.setState({ books: books })
         }, 200))
     }, 200))
@@ -47,22 +50,35 @@ class BooksApp extends React.Component {
 
   componentWillMount(){
       // Populate the initial page randomly
-      BooksAPI.getAll().then((books) => {
+      const firstTime = window.localStorage.getItem('first') || true
 
-          const shelves = ["currentlyReading", "wantToRead", "read"]
+      // Populate shelves for the first time
+      if (JSON.parse(firstTime)){
+          BooksAPI.getAll().then((books) => {
 
-          books.map(book => BooksAPI.update(book, shelves[Math.floor(Math.random() * shelves.length)]))
+              const shelves = ["currentlyReading", "wantToRead", "read"]
 
-      })
+              books.map(book => BooksAPI.update(book, shelves[Math.floor(Math.random() * shelves.length)]))
+
+              BooksAPI.getAll().then((books) => {
+                  books.forEach(book => book.visible = true )
+                  this.setState({ books: books }, () => {
+
+                      const stringfiedBooks = JSON.stringify(books)
+                      window.localStorage.setItem('booksUsed', stringfiedBooks)
+                      window.localStorage.setItem('first', JSON.stringify(false))
+
+                  })
+
+              })
+          })
+
+      } else {
+          const booksUsed = window.localStorage.getItem('booksUsed')
+          this.setState({ books: JSON.parse(booksUsed )})
+      }
+
   }
-
-  componentDidMount() {
-        BooksAPI.getAll().then((books) => {
-            books.forEach(book => book.visible = true )
-            this.setState({ books: books })
-        })
-  }
-
 
   render() {
 
