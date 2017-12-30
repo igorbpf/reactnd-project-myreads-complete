@@ -40,7 +40,7 @@ class SearchPage extends Component {
 
     render(){
 
-        const { query, books } = this.state
+        const { books } = this.state
         const { up, knownBooks } = this.props
 
         const knownIds = knownBooks.map(book => book.id);

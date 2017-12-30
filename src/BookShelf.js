@@ -3,7 +3,7 @@ import Book from "./Book"
 import PropTypes from 'prop-types'
 
 const BookShelf = ({shelf, books, up}) => {
-    const shelfBooks = books.filter(book => (book.shelf == shelf.value))
+    const shelfBooks = books.filter(book => (book.shelf === shelf.value))
 
     return (
 
