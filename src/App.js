@@ -38,8 +38,8 @@ class BooksApp extends React.Component {
                 visible: true
             })
             this.setState({ books: books })
-        }, 800))
-    }, 800))
+        }, 200))
+    }, 200))
 
 
   }
