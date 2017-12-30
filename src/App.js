@@ -8,17 +8,21 @@ import ListBooks from './ListBooks'
 class BooksApp extends React.Component {
     constructor(props) {
       super(props)
-
+      // This is used to make possible to call updateShelf in the BookButton component and
+      // reference to this.state.books in this Component
+      // Check: https://stackoverflow.com/questions/35537229/how-to-update-parents-state-in-react
       this.updateShelf = this.updateShelf.bind(this)
     }
 
   state = {
       books: [],
+      // State related to the animation when the shelf is shifted
       animation: 'fade up',
       duration: 500
   }
 
-
+  // This method changes a book's shelf, but before that it makes the book invisible and after changing shelf, it makes
+  // the book visible again
   updateShelf(target, book) {
       let books  = this.state.books
       books = books.filter(b => b.title !== book.title).concat({
@@ -74,6 +78,7 @@ class BooksApp extends React.Component {
           })
 
       } else {
+          // Get daata from the localStorage
           const booksUsed = window.localStorage.getItem('booksUsed')
           this.setState({ books: JSON.parse(booksUsed )})
       }

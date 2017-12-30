@@ -44,7 +44,8 @@ class SearchPage extends Component {
 
         const knownIds = knownBooks.map(book => book.id);
 
-
+        // This step is used in order to check which books returned by the search
+        // are present on the shelves and then chage their shelf property
         const filteredBooks = books.map(book => {
             if (knownIds.includes(book.id)){
                 const filteredBook = knownBooks.filter(b => b.id === book.id)[0]
