@@ -13,16 +13,35 @@ class BooksApp extends React.Component {
     }
 
   state = {
-      books: []
+      books: [],
+      animation: 'fade up',
+      duration: 500
   }
+
 
   updateShelf(target, book) {
       let books  = this.state.books
       books = books.filter(b => b.title !== book.title).concat({
           ...book,
-          shelf: target.value
+          visible: false
       })
-      this.setState({ books })
+      book.visible = false
+      this.setState({ books: books }, () => setTimeout(() => {
+          books = this.state.books.filter(b => b.title !== book.title).concat({
+              ...book,
+              shelf: target.value
+          })
+        book.shelf =  target.value
+        this.setState({ books: books }, () => setTimeout(() => {
+            books = this.state.books.filter(b => b.title !== book.title).concat({
+                ...book,
+                visible: true
+            })
+            this.setState({ books: books })
+        }, 800))
+    }, 800))
+
+
   }
 
 
@@ -39,7 +58,8 @@ class BooksApp extends React.Component {
 
   componentDidMount() {
         BooksAPI.getAll().then((books) => {
-            this.setState({ books })
+            books.forEach(book => book.visible = true )
+            this.setState({ books: books })
         })
   }
 
@@ -62,6 +82,9 @@ class BooksApp extends React.Component {
         books: this.state.books
     }]
 
+    const trans = { animation: this.state.animation,
+                    duration: this.state.duration}
+
     return (
       <div className="app">
 
@@ -70,7 +93,7 @@ class BooksApp extends React.Component {
       )}/>
 
         <Route exact path="/" render={() => (
-            <ListBooks books={this.state.books} shelves={shelves} up={this.updateShelf}/>
+            <ListBooks books={this.state.books} shelves={shelves} up={this.updateShelf} trans={trans}/>
         )}/>
 
       </div>
