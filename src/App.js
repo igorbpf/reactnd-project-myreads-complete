@@ -14,7 +14,7 @@ class BooksApp extends React.Component {
 
   state = {
       books: [],
-      animation: 'fade left',
+      animation: 'fade up',
       duration: 500
   }
 
